@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.10)
+project(imgdwnldr)
+find_package(CURL REQUIRED)
+find_package(RAPIDJSON REQUIRED)
+file(GLOB SOURCES "*.cpp" "include/*.cpp")
+add_executable(imgdwnldr ${SOURCES})
+target_include_directories(imgdwnldr PRIVATE ${RAPIDJSON_INCLUDE_DIRS} include)
+target_link_libraries(imgdwnldr PRIVATE CURL::libcurl)
