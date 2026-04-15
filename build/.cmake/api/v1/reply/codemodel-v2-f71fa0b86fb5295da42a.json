@@ -7,44 +7,58 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CURL::curl::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CURL__curl-Debug-f07b3ce322bf47ecdf6f.json",
+					"jsonFile" : "target-CURL__curl-Debug-b7a752072014f135bd2f.json",
 					"name" : "CURL::curl",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "CURL::libcurl_shared::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CURL__libcurl_shared-Debug-38ee4974e244a5291141.json",
+					"jsonFile" : "target-CURL__libcurl_shared-Debug-469d11d60b5dee12ec36.json",
 					"name" : "CURL::libcurl_shared",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "Git::Git::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Git__Git-Debug-8ec5cd37b813b3cbfbfe.json",
+					"name" : "Git::Git",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OpenSSL__Crypto-Debug-0c5a7620bc9d7ba5606b.json",
+					"jsonFile" : "target-OpenSSL__Crypto-Debug-d6c47330e50758d5e111.json",
 					"name" : "OpenSSL::Crypto",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "OpenSSL::SSL::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OpenSSL__SSL-Debug-93448fac782038320a41.json",
+					"jsonFile" : "target-OpenSSL__SSL-Debug-00721f145cfe9be906b0.json",
 					"name" : "OpenSSL::SSL",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "OpenSSL::applink::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OpenSSL__applink-Debug-d27e7da9eda20cf33986.json",
+					"jsonFile" : "target-OpenSSL__applink-Debug-5d30838a41206d8e5bc9.json",
 					"name" : "OpenSSL::applink",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "ZLIB::ZLIB::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-ZLIB__ZLIB-Debug-b5eee56d55f71759a643.json",
+					"jsonFile" : "target-ZLIB__ZLIB-Debug-47a9c956cde355b52618.json",
 					"name" : "ZLIB::ZLIB",
 					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "rapidcsv::@36d057e2e84dcc793f1e",
+					"jsonFile" : "target-rapidcsv-Debug-de300e59b562781bcb6d.json",
+					"name" : "rapidcsv",
+					"projectIndex" : 1
 				}
 			],
 			"directories" : 
@@ -57,9 +71,14 @@
 						2,
 						3,
 						4,
-						5
+						5,
+						6
 					],
 					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
 					"jsonFile" : "directory-.-Debug-f6f22219c74102c3da70.json",
 					"minimumCMakeVersion" : 
 					{
@@ -71,6 +90,21 @@
 					[
 						0
 					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						7
+					],
+					"build" : "_deps/rapidcsv-build",
+					"jsonFile" : "directory-_deps.rapidcsv-build-Debug-78f357dc33605f93ae4d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.14"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "build/_deps/rapidcsv-src"
 				}
 			],
 			"name" : "Debug",
@@ -84,7 +118,12 @@
 						2,
 						3,
 						4,
-						5
+						5,
+						6
+					],
+					"childIndexes" : 
+					[
+						1
 					],
 					"directoryIndexes" : 
 					[
@@ -95,6 +134,18 @@
 					[
 						0
 					]
+				},
+				{
+					"abstractTargetIndexes" : 
+					[
+						7
+					],
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "rapidcsv",
+					"parentIndex" : 0
 				}
 			],
 			"targets" : 
@@ -102,7 +153,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "imgdwnldr::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-imgdwnldr-Debug-5de563cfcd59047f74ac.json",
+					"jsonFile" : "target-imgdwnldr-Debug-bea5e1a98a9b30d03c89.json",
 					"name" : "imgdwnldr",
 					"projectIndex" : 0
 				}

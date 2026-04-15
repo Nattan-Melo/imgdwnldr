@@ -12,7 +12,7 @@
 		],
 		"files" : 
 		[
-			"C:/msys64/ucrt64/share/cmake/Modules/FindOpenSSL.cmake",
+			"C:/msys64/ucrt64/share/cmake/Modules/FindZLIB.cmake",
 			"C:/msys64/ucrt64/share/cmake/Modules/CMakeFindDependencyMacro.cmake",
 			"C:/msys64/ucrt64/lib/cmake/CURL/CURLConfig.cmake",
 			"C:/msys64/ucrt64/share/cmake/Modules/FindCURL.cmake",
@@ -26,7 +26,7 @@
 			{
 				"command" : 1,
 				"file" : 4,
-				"line" : 3,
+				"line" : 10,
 				"parent" : 0
 			},
 			{
@@ -46,7 +46,7 @@
 			{
 				"command" : 3,
 				"file" : 2,
-				"line" : 53,
+				"line" : 59,
 				"parent" : 4
 			},
 			{
@@ -68,7 +68,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 772,
+				"line" : 254,
 				"parent" : 8
 			}
 		]
@@ -78,10 +78,10 @@
 		"major" : 2,
 		"minor" : 9
 	},
-	"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df",
+	"id" : "ZLIB::ZLIB::@6890427a1f51a3e7e1df",
 	"imported" : true,
 	"local" : true,
-	"name" : "OpenSSL::Crypto",
+	"name" : "ZLIB::ZLIB",
 	"paths" : 
 	{
 		"build" : ".",

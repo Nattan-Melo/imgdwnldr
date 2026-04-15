@@ -218,6 +218,36 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FetchContent.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/ExternalProject/shared_internal_commands.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FindGit.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FetchContent/CMakeLists.cmake.in"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
 			"path" : "C:/msys64/ucrt64/share/cmake/Modules/FindCURL.cmake"
 		},
 		{
@@ -293,6 +323,10 @@
 		{
 			"isExternal" : true,
 			"path" : "C:/msys64/ucrt64/lib/cmake/RapidJSON/RapidJSONConfig.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/_deps/rapidcsv-src/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

@@ -37,7 +37,37 @@ std::vector<unsigned char> RequestContent::get_content(const std::string &url_ta
             throw std::runtime_error(
                 curl_easy_strerror(this->result)
             );
+        }
 
+        curl_slist_free_all(headers);
+    }
+
+    return imageData;
+}
+std::vector<unsigned char> RequestContent::get_content(const std::string &url_target, long *http_status)
+{
+    struct curl_slist *headers = NULL;
+    std::vector<unsigned char> imageData;
+    if(this->curl)
+    {   
+        headers = curl_slist_append(headers, "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+        curl_easy_setopt(this->curl, CURLOPT_URL, url_target.c_str());
+        curl_easy_setopt(this->curl, CURLOPT_WRITEFUNCTION, this->write_callback);
+        curl_easy_setopt(this->curl, CURLOPT_WRITEDATA, &imageData);
+        curl_easy_setopt(this->curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_easy_setopt(this->curl, CURLOPT_HTTPHEADER, headers);
+
+        this->result = curl_easy_perform(this->curl);
+
+        if(this->result != CURLE_OK)
+        {
+            throw std::runtime_error(
+                curl_easy_strerror(this->result)
+            );
+        }
+        else
+        {
+            curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_status);
         }
 
         curl_slist_free_all(headers);

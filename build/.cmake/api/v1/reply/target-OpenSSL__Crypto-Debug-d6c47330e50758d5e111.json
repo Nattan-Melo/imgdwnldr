@@ -8,8 +8,7 @@
 			"add_library",
 			"find_package",
 			"__find_dependency_common",
-			"find_dependency",
-			"set_target_properties"
+			"find_dependency"
 		],
 		"files" : 
 		[
@@ -27,7 +26,7 @@
 			{
 				"command" : 1,
 				"file" : 4,
-				"line" : 3,
+				"line" : 10,
 				"parent" : 0
 			},
 			{
@@ -69,13 +68,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 802,
-				"parent" : 8
-			},
-			{
-				"command" : 4,
-				"file" : 0,
-				"line" : 825,
+				"line" : 772,
 				"parent" : 8
 			}
 		]
@@ -85,24 +78,10 @@
 		"major" : 2,
 		"minor" : 9
 	},
-	"id" : "OpenSSL::SSL::@6890427a1f51a3e7e1df",
+	"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df",
 	"imported" : true,
-	"interfaceCompileDependencies" : 
-	[
-		{
-			"backtrace" : 10,
-			"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df"
-		}
-	],
-	"interfaceLinkLibraries" : 
-	[
-		{
-			"backtrace" : 10,
-			"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df"
-		}
-	],
 	"local" : true,
-	"name" : "OpenSSL::SSL",
+	"name" : "OpenSSL::Crypto",
 	"paths" : 
 	{
 		"build" : ".",
