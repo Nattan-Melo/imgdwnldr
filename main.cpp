@@ -10,6 +10,7 @@
 #include <curl/curl.h>
 #include <unordered_map>
 #include "curlenv.h"
+#include "cli_help.h"
 #include <vector>
 #include <algorithm>
 #include <chrono>
@@ -65,10 +66,20 @@ int main(int argc, char* argv[])
 {   
     CurlEnvironment curl_env;
     RequestContent *req = new RequestContent();
-
+    fs::path output_path = fs::current_path();
+    if(argc > 3){
+        if(argc == 5 && strcmp(argv[3], "-o")==0 || strcmp(argv[3], "--output")==0 ) {
+            if(fs::is_directory(argv[4]) == true)
+                output_path = argv[4];
+        }
+    }
     std::signal(SIGINT, callback_capture_interrupt);
     std::setlocale(LC_ALL, ".UTF8");
-    if(strcmp(argv[1], "json")==0){
+    if(strcmp(argv[1],"help")==0 || strcmp(argv[1], "--help") == 0)
+    {
+        display_help();
+    }
+    else if(strcmp(argv[1], "json")==0){
         std::unordered_map<string, string> *ds = new std::unordered_map<string, string>();
         try
         {
@@ -104,14 +115,15 @@ int main(int argc, char* argv[])
             {
                 auto raw_data = req->get_content(element.second);
                 auto format = req->get_image_format(raw_data);
-               // auto output_file = output_path / fs::path(element.first+format);
-                auto output_file = element.first + format;
-                req->save_content(output_file ,raw_data);
+                auto output_file = output_path / fs::path(element.first+format);
+                req->save_content(output_file.string() ,raw_data);
                 std::this_thread::sleep_for(std::chrono::seconds(delay_it()));
             }
 
             delete req;
             delete ds;
+            cout << "-> Processamento concluído" << endl;
+            cout << "-> Diretório de saída de dados: " << output_path << endl;
         }
         catch(const std::runtime_error& e)
         {
@@ -155,9 +167,9 @@ int main(int argc, char* argv[])
                             line[2] = "1";
                             doc.SetRow(i, line); 
                             auto format = req->get_image_format(raw_data);
-                            //auto output_file = output_path / fs::path(line[0]+img_format);
-                            auto output_file = line[0] + format;
-                            req->save_content(output_file, raw_data);
+                            auto output_file = output_path / fs::path(line[0]+format);
+                            cout << "Saida em: " << output_file.string() << endl;
+                            req->save_content(output_file.string(), raw_data);
                         }
                     }
                     else
@@ -166,6 +178,8 @@ int main(int argc, char* argv[])
                     std::this_thread::sleep_for(std::chrono::seconds(delay_it()));
                 }
                 doc.Save();
+                cout << "-> Processamento concluído" << endl;
+                cout << "-> Diretório de saída de dados: " << output_path << endl;
             }
             else
             {
@@ -178,13 +192,6 @@ int main(int argc, char* argv[])
             cerr << "Erro ao ler o arquivo .csv " << e.what() << endl;
             return (1);
         }
-    }
-    else if(strcmp(argv[1],"test")==0)
-    {
-        fs::path test_path = argv[2];
-        auto is_dir = fs::is_directory(test_path);
-        cout << "Caminho: " << test_path.string() << endl;
-        cout << "É diretorio: " << is_dir << endl;
     }
     return (0);
 }
