@@ -13,7 +13,7 @@ public:
     RequestContent();
     ~RequestContent();
     std::vector<unsigned char> get_content(const std::string &url_target);
-    std::vector<unsigned char> get_content(const std::string &url_target, long *http_status);
+    std::vector<unsigned char> get_content(const std::string &url_target, long &http_status);
     bool save_content(const std::string& fl_path, const std::vector<unsigned char> &raw_content);
     static std::string get_image_format(std::vector<unsigned char>& rwdt);
 private:

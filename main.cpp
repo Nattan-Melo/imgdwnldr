@@ -17,8 +17,11 @@
 #include <random>
 #include <csignal>
 #include <atomic>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
+
 static std::random_device rd;
 static std::mt19937 generator(rd());
 volatile std::atomic<bool> handle_signal(true);
@@ -47,15 +50,6 @@ int delay_it()
         return delay(generator);
 }
 
-std::unordered_map<string, vector<string>> *init_args_tree()
-{
-    auto *tmp = new std::unordered_map<string, vector<string>>();    
-    tmp->insert(make_pair("json", vector<string>{"-l", "--log"}));
-    tmp->insert(make_pair("csv", vector<string>{"-o", "--output", "-l", "--log"}));
-    tmp->insert(make_pair("help", vector<string>{"-h", "--help"}));
-    return tmp;
-}
-
 int contains_args(const char* contains, const char* args[], int len)
 {
     for(int i=0; i < len; ++i)
@@ -70,14 +64,11 @@ int contains_args(const char* contains, const char* args[], int len)
 int main(int argc, char* argv[])
 {   
     CurlEnvironment curl_env;
-    std::unordered_map<string, std::vector<string>> *args_tree = init_args_tree();
     RequestContent *req = new RequestContent();
 
     std::signal(SIGINT, callback_capture_interrupt);
     std::setlocale(LC_ALL, ".UTF8");
-    
-    if(strcmp(argv[1], "json")==0)
-    {
+    if(strcmp(argv[1], "json")==0){
         std::unordered_map<string, string> *ds = new std::unordered_map<string, string>();
         try
         {
@@ -113,7 +104,9 @@ int main(int argc, char* argv[])
             {
                 auto raw_data = req->get_content(element.second);
                 auto format = req->get_image_format(raw_data);
-                req->save_content(element.first + format ,raw_data);
+               // auto output_file = output_path / fs::path(element.first+format);
+                auto output_file = element.first + format;
+                req->save_content(output_file ,raw_data);
                 std::this_thread::sleep_for(std::chrono::seconds(delay_it()));
             }
 
@@ -126,17 +119,10 @@ int main(int argc, char* argv[])
         }
 
     }
-    else if(strcmp(argv[1],"csv")==0)
-    {
-        cout << "Fonte de dados CSV não suportado" << endl;
-        return 1;   
-    }
-    else if(strcmp(argv[1], "test") == 0)
-    {
+    else if(strcmp(argv[1], "csv") == 0){
         std::string mandatory_cols[] = {"CD","URL","STS"};
         size_t sz_mandatory_cols = std::size(mandatory_cols);
-        try
-        {
+        try{
             rapidcsv::Document doc(argv[2]);
 
             if(sz_mandatory_cols != doc.GetColumnCount())
@@ -153,10 +139,11 @@ int main(int argc, char* argv[])
                 {
                     vector<string> line = doc.GetRow<string>(i);
                     
-                    if(line[3] == "0")
+                    if(line[2] == "0")
                     {
 
-                        auto raw_data = req->get_content(line[1], &http_status);
+                        auto raw_data = req->get_content(line[1], http_status);
+                        cout << http_status << endl;
                         if(http_status != 200)
                         {
                             line[2] = "-1";
@@ -167,9 +154,10 @@ int main(int argc, char* argv[])
                         {
                             line[2] = "1";
                             doc.SetRow(i, line); 
-                            auto img_format = req->get_image_format(raw_data);
-                            req->save_content(line[0] + img_format, raw_data);
-
+                            auto format = req->get_image_format(raw_data);
+                            //auto output_file = output_path / fs::path(line[0]+img_format);
+                            auto output_file = line[0] + format;
+                            req->save_content(output_file, raw_data);
                         }
                     }
                     else
@@ -184,22 +172,19 @@ int main(int argc, char* argv[])
                 std::cout << "Error: o arquivo .csv deve conter as colunas - CD, URL e STS - Verifique o arquivo e tente novamente" << endl;
                 return (1);
             }
-
         }
-        catch(const std::exception& e){
+        catch(const std::exception& e)
+        {
             cerr << "Erro ao ler o arquivo .csv " << e.what() << endl;
             return (1);
         }
-        return (0);
     }
-    else
+    else if(strcmp(argv[1],"test")==0)
     {
-        cerr << "Argumentos inválidos - acesse o comando -h ou help" << endl;
-        return 1;
+        fs::path test_path = argv[2];
+        auto is_dir = fs::is_directory(test_path);
+        cout << "Caminho: " << test_path.string() << endl;
+        cout << "É diretorio: " << is_dir << endl;
     }
-    
-
-
-    delete args_tree;
     return (0);
 }

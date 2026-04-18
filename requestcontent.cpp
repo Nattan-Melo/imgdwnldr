@@ -44,7 +44,7 @@ std::vector<unsigned char> RequestContent::get_content(const std::string &url_ta
 
     return imageData;
 }
-std::vector<unsigned char> RequestContent::get_content(const std::string &url_target, long *http_status)
+std::vector<unsigned char> RequestContent::get_content(const std::string &url_target, long &http_status)
 {
     struct curl_slist *headers = NULL;
     std::vector<unsigned char> imageData;
@@ -56,9 +56,10 @@ std::vector<unsigned char> RequestContent::get_content(const std::string &url_ta
         curl_easy_setopt(this->curl, CURLOPT_WRITEDATA, &imageData);
         curl_easy_setopt(this->curl, CURLOPT_FOLLOWLOCATION, 1);
         curl_easy_setopt(this->curl, CURLOPT_HTTPHEADER, headers);
+        curl_easy_setopt(this->curl, CURLOPT_TIMEOUT_MS, 5000);
 
         this->result = curl_easy_perform(this->curl);
-
+        long status = 0;
         if(this->result != CURLE_OK)
         {
             throw std::runtime_error(
